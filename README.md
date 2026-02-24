@@ -2,6 +2,12 @@
 
 **AutoGod** is a robust and lightweight solution for managing invulnerability (God mode) and flight (Fly mode) on your Minecraft server. It offers a powerful persistence system and automatic activation based on specific groups, nicknames, and permissions.
 
+> [!CAUTION]
+> ### ⚠️ **IMPORTANT WARNING**
+> If you downloaded a **pre-release** or **previous version** of this plugin, you **MUST** delete the entire `plugins/AutoGod/` folder or at least the `data.yml` file.
+> 
+> **Reason:** During initial server testing, the developer's nickname (`comonier`) was accidentally left in the source code. This has been **COMPLETELY REMOVED** in version **1.0**. The current code is 100% clean and relies strictly on your own configurations and permissions. Please perform a clean install to ensure everything works correctly.
+
 ---
 
 ## ✨ Features
