@@ -49,3 +49,13 @@ god-groups:
 
 god-players:
   - "comonier"
+
+🚀 Installation
+Ensure you have Vault and a permission plugin (like LuckPerms) installed.
+Download the AutoGod.jar.
+Place it in your plugins/ folder.
+Restart your server.
+
+
+👨‍💻 Author
+Developed by comonier.

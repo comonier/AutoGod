@@ -10,10 +10,9 @@
 #
 # [ AUTO-ACTIVATION LOGIC ]
 # Players will get God and Fly automatically if:
-# 1. Their nickname is "comonier".
-# 2. Their nickname is in the 'god-players' list below.
-# 3. They belong to any group in 'god-groups' (Vault required).
-# 4. They have the permission 'auto.god'.
+# 1. Their nickname is in the 'god-players' list below.
+# 2. They belong to any group in 'god-groups' (Vault required).
+# 3. They have the permission 'auto.god'.
 #
 # [ PERSISTENCE ]
 # If a player uses /godme or /flyme manually, their state
@@ -22,6 +21,10 @@
 
 # Enable or disable the entire auto-login system
 god-on-login: true
+
+# Should authorized players also get Fly automatically?
+# Set to true to enable, false to disable.
+auto-fly-enabled: true
 
 # Groups that receive God/Fly AUTOMATICALLY (Vault/LuckPerms)
 god-groups:
@@ -36,6 +39,6 @@ god-groups:
   - "moderador"
 
 # Specific nicknames that receive God/Fly AUTOMATICALLY
+# The owner can add their own nick here.
 god-players:
-  - "comonier"
   - "ExamplePlayer"

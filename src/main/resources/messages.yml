@@ -1,8 +1,16 @@
-# Mensagens (Suporta cores com &)
-prefix: "&6[AutoGod] &r"
-god-enabled: "&aGod mode enabled!"
-god-disabled: "&cGod mode disabled!"
-fly-enabled: "&aFly mode enabled!"
-fly-disabled: "&cFly mode disabled!"
-no-permission: "&cYou do not have permission."
-reload-success: "&aConfiguration reloaded!"
+# ==========================================================
+#                   AutoGod Messages
+# ==========================================================
+prefix: "&8[&bAutoGod&8] &f"
+no-permission: "&cYou do not have permission to perform this action."
+reload-success: "&aPlugin configuration and messages reloaded!"
+
+god-enabled: "God mode has been &aactivated&f."
+god-disabled: "God mode has been &cdeactivated&f."
+
+fly-enabled: "Flight mode has been &aactivated&f."
+fly-disabled: "Flight mode has been &cdeactivated&f."
+
+# Persistence info
+god-restored: "Your God mode has been &arestored&f."
+fly-restored: "Your Flight mode has been &arestored&f."

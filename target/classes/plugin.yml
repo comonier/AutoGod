@@ -1,33 +1,33 @@
 name: AutoGod
-version: 1.0
+version: 1.1
 main: com.comonier.autogod.AutoGod
 api-version: '1.21'
-description: Plugin de AutoGod e Fly com persistencia e verificacao de grupos.
+description: AutoGod and Fly plugin with persistence and group verification.
 author: comonier
-depend: [Vault]
+softdepend: [Vault]
 
 commands:
   godme:
-    description: Ativa ou desativa seu proprio modo God.
+    description: Toggle your own God mode.
     permission: autogod.command.god
   flyme:
-    description: Ativa ou desativa seu proprio modo Fly.
+    description: Toggle your own Flight mode.
     permission: autogod.command.fly
   autogod:
-    description: Comando administrativo do plugin.
-    usage: /<command> reload
+    description: Administrative command for reloading.
+    usage: /autogod reload
     permission: auto.god.admin
 
 permissions:
   auto.god:
-    description: Permite receber God e Fly automaticamente ao logar.
+    description: Receive God and Fly automatically on login.
     default: op
   auto.god.admin:
-    description: Permite recarregar as configuracoes do plugin.
+    description: Allows reloading the plugin configuration.
     default: op
   autogod.command.god:
-    description: Permite usar o comando /godme.
+    description: Allows the use of /godme command.
     default: op
   autogod.command.fly:
-    description: Permite usar o comando /flyme.
+    description: Allows the use of /flyme command.
     default: op
