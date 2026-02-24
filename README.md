@@ -47,8 +47,7 @@ god-groups:
   - "moderator"
   - "moderador"
 
-god-players:
-  - "comonier"
+god-players: []
 
 🚀 Installation
 Ensure you have Vault and a permission plugin (like LuckPerms) installed.
