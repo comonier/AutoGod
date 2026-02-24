@@ -1,0 +1,8 @@
+# Mensagens (Suporta cores com &)
+prefix: "&6[AutoGod] &r"
+god-enabled: "&aGod mode enabled!"
+god-disabled: "&cGod mode disabled!"
+fly-enabled: "&aFly mode enabled!"
+fly-disabled: "&cFly mode disabled!"
+no-permission: "&cYou do not have permission."
+reload-success: "&aConfiguration reloaded!"
