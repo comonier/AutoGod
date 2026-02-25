@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class AutoGod extends JavaPlugin implements Listener, CommandExecutor {
 
@@ -41,7 +42,7 @@ public class AutoGod extends JavaPlugin implements Listener, CommandExecutor {
         getCommand("flyme").setExecutor(this);
         getCommand("autogod").setExecutor(this);
         
-        getLogger().info("AutoGod 1.1 - System successfully loaded.");
+        getLogger().info("AutoGod 1.0 - Plugin successfully loaded.");
     }
 
     private void loadMessagesConfig() {
@@ -77,51 +78,60 @@ public class AutoGod extends JavaPlugin implements Listener, CommandExecutor {
         FileConfiguration config = getConfig();
         String prefix = color(msgConfig.getString("prefix"));
         
-        // REVERSED LOGIC: Restore manual persistence first
+        // 1. RESTORE PERSISTENCE (Lógica de guarda)
         if (dataConfig.getBoolean("god." + uuid)) {
             enableGod(player, false);
             player.sendMessage(prefix + color(msgConfig.getString("god-restored")));
         }
+        
         if (dataConfig.getBoolean("fly." + uuid)) {
             enableFly(player, false);
             player.sendMessage(prefix + color(msgConfig.getString("fly-restored")));
         }
 
-        // REVERSED LOGIC: Stop if auto-activation system is globally disabled
+        // 2. AUTO-ACTIVATION CHECK
+        // Se o sistema global estiver desligado, encerra aqui.
         if (!config.getBoolean("god-on-login")) {
             return;
         }
 
         boolean isAuto = false;
-        List<String> configNicks = config.getStringList("god-players");
+        
+        // Check Nicknames (Ignora maiúsculas/minúsculas)
+        List<String> configNicks = config.getStringList("god-players").stream()
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
 
-        // Check if player name is in the config list
-        if (configNicks.contains(player.getName())) {
+        if (configNicks.contains(player.getName().toLowerCase())) {
             isAuto = true;
         }
 
-        // Check for auto permission
+        // Check Permissions
         if (!isAuto && player.hasPermission("auto.god")) {
             isAuto = true;
         }
 
-        // Check for Vault groups
+        // Check Vault Groups
         if (!isAuto && perms != null) {
             List<String> groups = config.getStringList("god-groups");
             for (String group : groups) {
-                if (perms.playerInGroup(player, group)) { isAuto = true; break; }
+                if (perms.playerInGroup(player, group)) { 
+                    isAuto = true; 
+                    break; 
+                }
             }
         }
 
-        // REVERSED LOGIC: Stop if player is not authorized for auto-features
+        // 3. FINAL VERIFICATION (Lógica Inversa)
+        // Se o jogador não foi autorizado por nenhum método acima, encerra.
         if (!isAuto) {
             return;
         }
 
-        // Apply Auto God
+        // Ativa God automaticamente
         enableGod(player, false);
 
-        // Apply Auto Flight only if enabled in config
+        // Ativa Fly se estiver habilitado no config
         if (config.getBoolean("auto-fly-enabled")) {
             enableFly(player, false);
         }
@@ -129,12 +139,12 @@ public class AutoGod extends JavaPlugin implements Listener, CommandExecutor {
 
     @EventHandler
     public void onDamage(EntityDamageEvent event) {
-        // REVERSED LOGIC: Ignore if the entity is not a player
+        // Se não for jogador, ignora.
         if (!(event.getEntity() instanceof Player)) {
             return;
         }
         
-        // Cancel damage if player is in the god set
+        // Se estiver no Set de God, cancela o dano.
         if (godPlayers.contains(event.getEntity().getUniqueId())) {
             event.setCancelled(true);
         }
@@ -144,9 +154,9 @@ public class AutoGod extends JavaPlugin implements Listener, CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         String prefix = color(msgConfig.getString("prefix"));
 
+        // Comando Administrativo
         if (cmd.getName().equalsIgnoreCase("autogod")) {
-            if (args.length == 0) return false;
-            if (!args[0].equalsIgnoreCase("reload")) return false;
+            if (args.length == 0 || !args[0].equalsIgnoreCase("reload")) return false;
             
             if (!sender.hasPermission("auto.god.admin")) {
                 sender.sendMessage(prefix + color(msgConfig.getString("no-permission")));
@@ -159,6 +169,7 @@ public class AutoGod extends JavaPlugin implements Listener, CommandExecutor {
             return true;
         }
 
+        // Comandos de Jogador
         if (!(sender instanceof Player)) return true;
         Player p = (Player) sender;
 
@@ -196,27 +207,39 @@ public class AutoGod extends JavaPlugin implements Listener, CommandExecutor {
 
     private void enableGod(Player p, boolean save) {
         godPlayers.add(p.getUniqueId());
-        if (save) { dataConfig.set("god." + p.getUniqueId(), true); saveData(); }
-        if (save) p.sendMessage(color(msgConfig.getString("prefix") + msgConfig.getString("god-enabled")));
+        if (save) { 
+            dataConfig.set("god." + p.getUniqueId(), true); 
+            saveData(); 
+            p.sendMessage(color(msgConfig.getString("prefix") + msgConfig.getString("god-enabled")));
+        }
     }
 
     private void disableGod(Player p, boolean save) {
         godPlayers.remove(p.getUniqueId());
-        if (save) { dataConfig.set("god." + p.getUniqueId(), false); saveData(); }
-        if (save) p.sendMessage(color(msgConfig.getString("prefix") + msgConfig.getString("god-disabled")));
+        if (save) { 
+            dataConfig.set("god." + p.getUniqueId(), false); 
+            saveData(); 
+            p.sendMessage(color(msgConfig.getString("prefix") + msgConfig.getString("god-disabled")));
+        }
     }
 
     private void enableFly(Player p, boolean save) {
         p.setAllowFlight(true);
-        if (save) { dataConfig.set("fly." + p.getUniqueId(), true); saveData(); }
-        if (save) p.sendMessage(color(msgConfig.getString("prefix") + msgConfig.getString("fly-enabled")));
+        if (save) { 
+            dataConfig.set("fly." + p.getUniqueId(), true); 
+            saveData(); 
+            p.sendMessage(color(msgConfig.getString("prefix") + msgConfig.getString("fly-enabled")));
+        }
     }
 
     private void disableFly(Player p, boolean save) {
         p.setAllowFlight(false);
         p.setFlying(false);
-        if (save) { dataConfig.set("fly." + p.getUniqueId(), false); saveData(); }
-        if (save) p.sendMessage(color(msgConfig.getString("prefix") + msgConfig.getString("fly-disabled")));
+        if (save) { 
+            dataConfig.set("fly." + p.getUniqueId(), false); 
+            saveData(); 
+            p.sendMessage(color(msgConfig.getString("prefix") + msgConfig.getString("fly-disabled")));
+        }
     }
 
     private String color(String s) { 
