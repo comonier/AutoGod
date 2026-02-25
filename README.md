@@ -4,7 +4,7 @@
 
 > [!CAUTION]
 > ### ⚠️ **IMPORTANT WARNING**
-> If you downloaded a **pre-release** or **previous version** of this plugin, you **MUST** delete the entire `plugins/AutoGod/` folder or at least the `data.yml` file and old `AutoGod.jar` file e download it again.
+> If you downloaded a **pre-release** or **previous version 1.0 old** of this plugin, you **MUST** delete the entire `plugins/AutoGod/` folder or at least the `data.yml` file and old `AutoGod.jar` file e download it again.
 > 
 > **Reason:** During initial server testing, the developer's nickname (`comonier`) was accidentally left in the source code. This has been **COMPLETELY REMOVED** in version **1.0**. The current code is 100% clean and relies strictly on your own configurations and permissions. Please perform a clean install to ensure everything works correctly.
 
