@@ -1,4 +1,5 @@
-# 🛡️ AutoGod - Minecraft Plugin (1.21.1)
+# 🛡️ AutoGod - Minecraft Plugin (1.21+) 
+Tested on 1.21.11
 
 **AutoGod** is a robust and lightweight solution for managing invulnerability (God mode) and flight (Fly mode) on your Minecraft server. It offers a powerful persistence system and automatic activation based on specific groups, nicknames, and permissions.
 
