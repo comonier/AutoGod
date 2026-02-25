@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -78,6 +79,7 @@ public class AutoGod extends JavaPlugin implements Listener, CommandExecutor {
         FileConfiguration config = getConfig();
         String prefix = color(msgConfig.getString("prefix"));
         
+        // RESTORE: Se estava no data.yml como true, ativa.
         if (dataConfig.getBoolean("god." + uuid)) {
             enableGod(player, false);
             player.sendMessage(prefix + color(msgConfig.getString("god-restored")));
@@ -87,12 +89,12 @@ public class AutoGod extends JavaPlugin implements Listener, CommandExecutor {
             player.sendMessage(prefix + color(msgConfig.getString("fly-restored")));
         }
 
+        // LÓGICA INVERSA: Para se o auto-login estiver desligado
         if (config.getBoolean("god-on-login") == false) {
             return;
         }
 
         boolean isAuto = false;
-
         List<String> configNicks = config.getStringList("god-players").stream()
                 .map(String::toLowerCase)
                 .collect(Collectors.toList());
@@ -108,22 +110,36 @@ public class AutoGod extends JavaPlugin implements Listener, CommandExecutor {
         if (isAuto == false && perms != null) {
             List<String> groups = config.getStringList("god-groups");
             for (String group : groups) {
-                if (perms.playerInGroup(player, group)) { 
-                    isAuto = true; 
-                    break; 
-                }
+                if (perms.playerInGroup(player, group)) { isAuto = true; break; }
             }
         }
 
+        // LÓGICA INVERSA: Para se não for auto-autorizado
         if (isAuto == false) {
             return;
         }
 
         enableGod(player, false);
-
         if (config.getBoolean("auto-fly-enabled")) {
             enableFly(player, false);
         }
+    }
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent event) {
+        Player player = event.getPlayer();
+        UUID uuid = player.getUniqueId();
+        
+        // SINCRONIZAÇÃO FINAL: Salva o estado real ao sair para evitar "God Eterno"
+        boolean isGodActive = godPlayers.contains(uuid);
+        boolean isFlyActive = player.getAllowFlight();
+        
+        dataConfig.set("god." + uuid, isGodActive);
+        dataConfig.set("fly." + uuid, isFlyActive);
+        saveData();
+        
+        // Limpa da memória RAM
+        godPlayers.remove(uuid);
     }
 
     @EventHandler
@@ -131,7 +147,6 @@ public class AutoGod extends JavaPlugin implements Listener, CommandExecutor {
         if ((event.getEntity() instanceof Player) == false) {
             return;
         }
-        
         if (godPlayers.contains(event.getEntity().getUniqueId())) {
             event.setCancelled(true);
         }
@@ -142,8 +157,7 @@ public class AutoGod extends JavaPlugin implements Listener, CommandExecutor {
         String prefix = color(msgConfig.getString("prefix"));
 
         if (cmd.getName().equalsIgnoreCase("autogod")) {
-            // EVITANDO CARACTERE DE MENOR QUE:
-            if (args.length == 0) return false; 
+            if (args.length == 0) return false;
             if (args[0].equalsIgnoreCase("reload") == false) return false;
             
             if (sender.hasPermission("auto.god.admin") == false) {
@@ -170,7 +184,6 @@ public class AutoGod extends JavaPlugin implements Listener, CommandExecutor {
                 disableGod(p, true);
                 return true;
             }
-            
             enableGod(p, true);
             return true;
         }
@@ -185,7 +198,6 @@ public class AutoGod extends JavaPlugin implements Listener, CommandExecutor {
                 disableFly(p, true);
                 return true;
             }
-            
             enableFly(p, true);
             return true;
         }
@@ -195,24 +207,24 @@ public class AutoGod extends JavaPlugin implements Listener, CommandExecutor {
     private void enableGod(Player p, boolean save) {
         godPlayers.add(p.getUniqueId());
         if (save == false) return;
-        dataConfig.set("god." + p.getUniqueId(), true); 
-        saveData(); 
+        dataConfig.set("god." + p.getUniqueId(), true);
+        saveData();
         p.sendMessage(color(msgConfig.getString("prefix") + msgConfig.getString("god-enabled")));
     }
 
     private void disableGod(Player p, boolean save) {
         godPlayers.remove(p.getUniqueId());
         if (save == false) return;
-        dataConfig.set("god." + p.getUniqueId(), false); 
-        saveData(); 
+        dataConfig.set("god." + p.getUniqueId(), false);
+        saveData();
         p.sendMessage(color(msgConfig.getString("prefix") + msgConfig.getString("god-disabled")));
     }
 
     private void enableFly(Player p, boolean save) {
         p.setAllowFlight(true);
         if (save == false) return;
-        dataConfig.set("fly." + p.getUniqueId(), true); 
-        saveData(); 
+        dataConfig.set("fly." + p.getUniqueId(), true);
+        saveData();
         p.sendMessage(color(msgConfig.getString("prefix") + msgConfig.getString("fly-enabled")));
     }
 
@@ -220,8 +232,8 @@ public class AutoGod extends JavaPlugin implements Listener, CommandExecutor {
         p.setAllowFlight(false);
         p.setFlying(false);
         if (save == false) return;
-        dataConfig.set("fly." + p.getUniqueId(), false); 
-        saveData(); 
+        dataConfig.set("fly." + p.getUniqueId(), false);
+        saveData();
         p.sendMessage(color(msgConfig.getString("prefix") + msgConfig.getString("fly-disabled")));
     }
 

@@ -24,11 +24,12 @@
 ## 🛠️ Commands & Permissions
 
 
-| Command | Description | Permission |
-| :--- | :--- | :--- |
-| `/godme` | Toggle your own God mode. | `autogod.command.god` |
-| `/flyme` | Toggle your own Fly mode. | `autogod.command.fly` |
-| `/autogod reload` | Reload plugin configuration. | `auto.god.admin` |
+| Command | Description | Permission | Default |
+| :--- | :--- | :--- | :--- |
+| `/godme` | Toggle your own God mode (Invulnerability) | `autogod.command.god` | **OP** |
+| `/flyme` | Toggle your own Flight mode | `autogod.command.fly` | **OP** |
+| `/autogod reload` | Reload the plugin configuration and messages | `auto.god.admin` | **OP** |
+| **(Auto-Join)** | Receive God and Fly automatically on login | `auto.god` | **OP** |
 
 > **Note:** Players with the permission `auto.god` always receive God/Fly on login.
 
