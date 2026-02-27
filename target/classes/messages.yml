@@ -1,16 +1,21 @@
-# ==========================================================
-#                   AutoGod Messages
-# ==========================================================
-prefix: "&8[&bAutoGod&8] &f"
-no-permission: "&cYou do not have permission to perform this action."
-reload-success: "&aPlugin configuration and messages reloaded!"
+en:
+  prefix: "&8[&bAutoGod&8] &f"
+  no-permission: "&cYou do not have permission to perform this action."
+  reload-success: "&aPlugin configuration and messages reloaded!"
+  god-enabled: "God mode has been &aactivated&f."
+  god-disabled: "God mode has been &cdeactivated&f."
+  fly-enabled: "Flight mode has been &aactivated&f."
+  fly-disabled: "Flight mode has been &cdeactivated&f."
+  god-restored: "Your God mode has been &arestored&f."
+  fly-restored: "Your Flight mode has been &arestored&f."
 
-god-enabled: "God mode has been &aactivated&f."
-god-disabled: "God mode has been &cdeactivated&f."
-
-fly-enabled: "Flight mode has been &aactivated&f."
-fly-disabled: "Flight mode has been &cdeactivated&f."
-
-# Persistence info
-god-restored: "Your God mode has been &arestored&f."
-fly-restored: "Your Flight mode has been &arestored&f."
+pt:
+  prefix: "&8[&bAutoGod&8] &f"
+  no-permission: "&cVocê não tem permissão para executar esta ação."
+  reload-success: "&aConfigurações e mensagens do plugin recarregadas!"
+  god-enabled: "Modo God foi &aativado&f."
+  god-disabled: "Modo God foi &cdesativado&f."
+  fly-enabled: "Modo Fly foi &aativado&f."
+  fly-disabled: "Modo Fly foi &cdesativado&f."
+  god-restored: "Seu modo God foi &arestaurado&f."
+  fly-restored: "Seu modo Fly foi &arestaurado&f."

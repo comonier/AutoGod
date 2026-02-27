@@ -1,23 +1,18 @@
-# 🛡️ AutoGod - Minecraft Plugin (1.21+) 
-Tested on 1.21.11
+# 🛡️ AutoGod - Minecraft Plugin (1.21+)
+**Robust and lightweight solution for God and Fly modes with persistence and multi-language support.**
 
-**AutoGod** is a robust and lightweight solution for managing invulnerability (God mode) and flight (Fly mode) on your Minecraft server. It offers a powerful persistence system and automatic activation based on specific groups, nicknames, and permissions.
-
-> [!CAUTION]
-> ### ⚠️ **IMPORTANT WARNING**
-> If you downloaded a **pre-release** or **previous version 1.0 old** of this plugin, you **MUST** delete the entire `plugins/AutoGod/` folder or at least the `data.yml` file and old `AutoGod.jar` file e download it again.
-> 
-> **Reason:** During initial server testing, the developer's nickname (`comonier`) was accidentally left in the source code. This has been **COMPLETELY REMOVED** in version **1.0**. The current code is 100% clean and relies strictly on your own configurations and permissions. Please perform a clean install to ensure everything works correctly.
+Tested on **Paper/Spigot 1.21.1**.
 
 ---
 
 ## ✨ Features
 
 - **Auto-Login:** Automatically enables God and Fly modes when authorized players join.
-- **Persistence:** Manual God/Fly states are saved in `data.yml` and restored after server restarts.
-- **Full Vault Integration:** Automatic detection for multiple administration and moderator groups.
-- **Secret Priority:** Dedicated auto-activation logic for the user `comonier`.
-- **Fully Customizable:** English messages by default, translatable via `messages.yml`.
+- **Independent Logic:** Separate permissions for God and Fly auto-activation.
+- **Persistence:** Manual states are saved in `data.yml` and restored after server restarts.
+- **Fall Protection:** Forced flight on join to prevent fall damage during login.
+- **Vault Integration:** Automatic detection for administrative and moderator groups.
+- **Multi-Language:** Supports **English (en)** and **Portuguese (pt)** via `config.yml`.
 - **Hot-Reload:** Update configurations in real-time with `/autogod reload`.
 
 ---
@@ -27,42 +22,37 @@ Tested on 1.21.11
 
 | Command | Description | Permission | Default |
 | :--- | :--- | :--- | :--- |
-| `/godme` | Toggle your own God mode (Invulnerability) | `autogod.command.god` | **OP** |
+| `/godme` | Toggle your own God mode | `autogod.command.god` | **OP** |
 | `/flyme` | Toggle your own Flight mode | `autogod.command.fly` | **OP** |
-| `/autogod reload` | Reload the plugin configuration and messages | `auto.god.admin` | **OP** |
-| **(Auto-Join)** | Receive God and Fly automatically on login | `auto.god` | **OP** |
-
-> **Note:** Players with the permission `auto.god` always receive God/Fly on login.
+| `/autogod reload` | Reload configuration and messages | `auto.god.admin` | **OP** |
+| **(Auto-God)** | Receive God mode automatically on login | `auto.god.login` | **OP** |
+| **(Auto-Fly)** | Receive Fly mode automatically on login | `auto.fly.login` | **OP** |
 
 ---
 
-## ⚙️ Configuration (Auto-Activation Groups)
+## ⚙️ Configuration
 
-- **Owners:** `own`, `owner`
-- **Admins:** `adm`, `admin`, `administrator`, `administrador`
-- **Staff:** `mod`, `moderator`, `moderador`
+### Language Support
+Change the `language` key in `config.yml` to switch between English and Portuguese:
+- `language: en` (Default)
+- `language: pt` (Portuguese)
 
-```yaml
-# config.yml example
-god-groups:
-  - "adm"
-  - "own"
-  - "owner"
-  - "admin"
-  - "administrator"
-  - "administrador"
-  - "mod"
-  - "moderator"
-  - "moderador"
+### Auto-Activation Groups
+By default, the plugin recognizes these groups:
+- Owners: `own`, `owner`
+- Admins: `adm`, `admin`, `administrator`, `administrador`
+- Staff: `mod`, `moderator`, `moderador`
 
-god-players: []
+---
 
-🚀 Installation
-Ensure you have Vault and a permission plugin (like LuckPerms) installed.
-Download the AutoGod.jar.
-Place it in your plugins/ folder.
-Restart your server.
+## 🚀 Installation
 
+1. Ensure you have Vault and a permission plugin (like [LuckPerms](https://luckperms.net)) installed.
+2. Download the `AutoGod.jar`.
+3. Place it in your `plugins/` folder.
+4. Restart your server.
 
-👨‍💻 Author
-Developed by comonier.
+---
+
+## 👨‍💻 Author
+Developed by **comonier**.

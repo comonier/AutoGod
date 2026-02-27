@@ -1,36 +1,13 @@
-# ==========================================================
-#                   AutoGod Configuration
-# ==========================================================
-# 
-# [ PERMISSIONS ]
-# - auto.god: Get God/Fly automatically on login.
-# - auto.god.admin: Permission for /autogod reload.
-# - autogod.command.god: Permission to use /godme.
-# - autogod.command.fly: Permission to use /flyme.
-#
-# [ AUTO-ACTIVATION LOGIC ]
-# Players will get God and Fly automatically if:
-# 1. Their nickname is in the 'god-players' list below.
-# 2. They belong to any group in 'god-groups' (Vault required).
-# 3. They have the permission 'auto.god'.
-#
-# [ PERSISTENCE ]
-# If a player uses /godme or /flyme manually, their state
-# will be saved in data.yml and restored on next login.
-# ==========================================================
+# Language: 'en' (English) or 'pt' (Português)
+language: en
 
-# Enable or disable the entire auto-login system
 god-on-login: true
-
-# Should authorized players also get Fly automatically?
-# Set to true to enable, false to disable.
 auto-fly-enabled: true
 
-# Groups that receive God/Fly AUTOMATICALLY (Vault/LuckPerms)
 god-groups:
-  - "adm"
   - "own"
   - "owner"
+  - "adm"
   - "admin"
   - "administrator"
   - "administrador"
@@ -38,7 +15,5 @@ god-groups:
   - "moderator"
   - "moderador"
 
-# Specific nicknames that receive God/Fly AUTOMATICALLY
-# The owner can add their own nick here.
 god-players:
   - "ExamplePlayer"

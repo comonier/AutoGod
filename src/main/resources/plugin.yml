@@ -1,8 +1,8 @@
 name: AutoGod
-version: 1.2
+version: 1.3
 main: com.comonier.autogod.AutoGod
 api-version: '1.21'
-description: AutoGod and Fly plugin with persistence and group verification.
+description: AutoGod and Fly plugin with independent persistence and group verification.
 author: comonier
 softdepend: [Vault]
 
@@ -19,9 +19,6 @@ commands:
     permission: auto.god.admin
 
 permissions:
-  auto.god:
-    description: Receive God and Fly automatically on login.
-    default: op
   auto.god.admin:
     description: Allows reloading the plugin configuration.
     default: op
@@ -30,4 +27,10 @@ permissions:
     default: op
   autogod.command.fly:
     description: Allows the use of /flyme command.
+    default: op
+  auto.god.login:
+    description: Receive God automatically on login.
+    default: op
+  auto.fly.login:
+    description: Receive Fly automatically on login.
     default: op
